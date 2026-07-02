@@ -1,0 +1,279 @@
+/* ==========================================================================
+   ZEANJO PDI — Tema claro y colorido
+   Azul como color principal (de las franjas del logo UCT), dorado como
+   secundario, índigo como color de marca para texto y algunos bloques.
+   El plateado del logo AGT se usa como efecto "cromado" al presionar botones.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+:root{
+  --bg:         #110258;
+  --surface:    #FFFFFF;
+  --surface-2:  #D6ECFA;
+  --line:       #BFDFF5;
+
+  --ink:        #170458;   /* índigo — texto principal / marca */
+  --ink-dim:    #5B6478;
+  --ink-faint:  #9098AC;
+
+  --blue:       #00AEEF;   /* AZUL — color principal */
+  --blue-ink:   #00212E;
+  --gold:       #FFC107;   /* dorado — secundario */
+  --gold-ink:   #241900;
+  --navy:       #170458;   /* índigo — terciario, bloques y encabezados */
+  --danger:     #FF5C5C;
+
+  --chrome: linear-gradient(135deg,#F5F7FA 0%,#C3CAD4 35%,#8891A0 55%,#EAEDF1 100%);
+
+  --f-display: 'Space Grotesk', sans-serif;
+  --f-body:    'Inter', sans-serif;
+  --f-mono:    'JetBrains Mono', monospace;
+
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 22px;
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{ font-family: var(--f-display); margin: 0; letter-spacing: -0.01em; }
+a{ color: inherit; }
+
+.icon{ width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; vertical-align: -4px; }
+.icon-sm{ width: 16px; height: 16px; }
+
+/* --------------------------------------------------------------------
+   Marco tipo visor (firma de marca) — esquinas azul + dorado
+   -------------------------------------------------------------------- */
+.viewfinder{ position: relative; padding: 16px; display: inline-block; }
+.viewfinder::before, .viewfinder::after, .viewfinder .vf-tr, .viewfinder .vf-bl{
+  content: ""; position: absolute; width: 20px; height: 20px; border-width: 3px; border-style: solid; opacity: .95;
+}
+.viewfinder::before{ top:0; left:0; border-right:none; border-bottom:none; border-color: var(--blue); }
+.viewfinder::after{ bottom:0; right:0; border-left:none; border-top:none; border-color: var(--blue); }
+.viewfinder .vf-tr{ top:0; right:0; border-left:none; border-bottom:none; border-color: var(--gold); }
+.viewfinder .vf-bl{ bottom:0; left:0; border-right:none; border-top:none; border-color: var(--gold); }
+
+/* --------------------------------------------------------------------
+   Botones — el press/active usa el efecto cromado del logo AGT
+   -------------------------------------------------------------------- */
+button{ font-family: var(--f-body); }
+
+.btn{
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; border-radius: var(--radius-m); padding: 14px 20px;
+  font-size: .92rem; font-weight: 700; cursor: pointer; width: 100%;
+  transition: transform .12s ease, filter .12s ease, background .15s ease;
+}
+.btn:active{ background: var(--chrome) !important; color: var(--ink) !important; transform: scale(.97); }
+
+.btn-primary{ background: var(--blue); color: #fff; box-shadow: 0 8px 18px rgba(0,174,239,.28); }
+.btn-navy{ background: var(--navy); color: #fff; box-shadow: 0 8px 18px rgba(23,4,88,.24); }
+.btn-gold{ background: var(--gold); color: var(--gold-ink); box-shadow: 0 8px 18px rgba(255,193,7,.28); }
+
+.btn-outline{ background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); box-shadow: 0 2px 8px rgba(23,4,88,.06); }
+.btn-outline:hover{ border-color: var(--blue); color: var(--blue); }
+
+.btn-danger{ background: transparent; color: var(--danger); border: 1.5px solid rgba(255,92,92,.35); }
+.btn-danger:hover{ background: rgba(255,92,92,.08); }
+
+.btn-icon{ width: 48px; flex: none; padding: 0; height: 48px; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); }
+
+/* ==========================================================================
+   INDEX — inicio
+   ========================================================================== */
+.fondo-tecnologico{
+  position: relative; min-height: 100vh; display: flex; flex-direction: column;
+  background:
+    linear-gradient(rgba(26, 10, 106, 0.88), rgba(16, 6, 82, 0.96)),
+    url('../img/uct.jfif');
+  background-size: cover; background-position: center; background-attachment: fixed;
+}
+
+.top-bar{
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.logo-uct{ width: 32px; height: 32px; object-fit: contain; }
+.uni-name{ font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-dim); }
+
+.content-center{
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 36px 22px 30px; text-align: center;
+}
+
+.logo-frame{ display: inline-block; margin-bottom: 18px; }
+.logo-main{
+  width: 112px; height: 112px; border-radius: var(--radius-l); object-fit: cover; display: block;
+  box-shadow: 0 14px 30px rgba(23,4,88,.2); border: 4px solid #fff;
+}
+
+.app-title{ font-size:2.2rem; font-weight:800; color:#fff; }
+.app-title .accent{ color:#00C8FF; }
+.app-subtitle{ font-size:1rem; font-weight:600; color:rgba(255,255,255,.92); margin:10px 0 30px; }
+
+.action-stack{ width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 12px; }
+
+#menuCarga{
+  width: 100%; max-width: 340px; margin-top: 4px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+#menuCarga .card{
+  border: none; border-radius: var(--radius-m); padding: 15px 16px;
+  display: flex; align-items: center; gap: 12px; text-align: left; cursor: pointer;
+  font-weight: 700; font-size: .9rem;
+}
+.card-navy{ background: var(--navy); color: #fff; box-shadow: 0 8px 18px rgba(23,4,88,.22); }
+.card-blue{ background: var(--blue); color: #fff; box-shadow: 0 8px 18px rgba(0,174,239,.24); }
+.card-gold{ background: var(--gold); color: var(--gold-ink); box-shadow: 0 8px 18px rgba(255,193,7,.26); }
+#menuCarga .card .ic{ width: 38px; height: 38px; border-radius: 10px; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,.22); flex-shrink:0; }
+.card-gold .ic{ background: rgba(0,0,0,.1); }
+
+.bottom-nav{
+  display: flex; background: rgba(255,255,255,.95); border-top: 1px solid var(--line); padding: 6px 8px 10px;
+}
+.nav-item{
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 10px 6px; cursor: pointer; color: var(--ink-faint); font-size: .68rem; font-weight: 700;
+  border-radius: var(--radius-m); transition: background .12s ease, color .12s ease;
+}
+.nav-item:hover, .nav-item:focus-visible{ color: var(--blue); background: var(--surface-2); }
+.nav-item .icon{ width: 22px; height: 22px; }
+
+/* ==========================================================================
+   EDITOR
+   ========================================================================== */
+.navbar{
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 20px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.navbar h1{ font-size: .95rem; letter-spacing: .14em; color: var(--ink); }
+.navbar h1 .accent{ color: var(--blue); }
+
+.app-container{ padding: 0 16px 16px; max-width: 640px; margin: 0 auto; }
+
+/* El canvas se queda fijo arriba mientras se hace scroll a los filtros */
+#canvas-container{
+  position: sticky; top: 0; z-index: 20;
+  background: #0B0E14;
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
+  box-shadow: 0 10px 24px rgba(23,4,88,.18);
+  max-height: 34vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  margin: 0 -16px 14px;
+  padding-top: 0;
+}
+canvas, video{ max-width: 100%; max-height: 34vh; height: auto; display: block; }
+
+.capture-row{ display: flex; gap: 10px; margin: 14px 0 10px; }
+
+.category{
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-m);
+  margin-bottom: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(23,4,88,.05);
+}
+.category-title{
+  display: flex; align-items: center; gap: 10px; padding: 15px 16px;
+  font-size: .85rem; font-weight: 700; color: var(--ink); cursor: pointer; list-style: none;
+}
+.category-title::-webkit-details-marker{ display: none; }
+.category-title .icon{ color: var(--blue); }
+.category-title .chev{ margin-left: auto; color: var(--ink-faint); transition: transform .15s ease; }
+details[open] .chev{ transform: rotate(180deg); }
+
+.filter-group{ padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+.filter-group:first-of-type{ border-top: none; padding-top: 0; }
+
+.group-label{ font-family: var(--f-mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin: 14px 0 8px; }
+
+label{ font-size: .8rem; color: var(--ink-dim); display: block; margin-bottom: 4px; font-weight: 500; }
+label span{ font-family: var(--f-mono); color: var(--blue); font-weight: 600; }
+
+input[type=range]{ width: 100%; margin: 4px 0 16px; accent-color: var(--blue); height: 4px; }
+
+.contenedor-botones{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-filtro{
+  display: flex; align-items: center; gap: 8px; color: var(--ink); background: var(--surface);
+  border: 1.5px solid var(--line); padding: 11px 12px; border-radius: var(--radius-s); cursor: pointer;
+  font-size: .8rem; font-weight: 600; height: auto; width: auto; margin: 0;
+  box-shadow: 0 3px 10px rgba(23,4,88,.08);
+  transition: border-color .12s ease, transform .1s ease;
+}
+.btn-filtro:hover{ border-color: var(--blue); transform: translateY(-1px); }
+.btn-filtro .icon{ width: 17px; height: 17px; padding: 6px; box-sizing: content-box; border-radius: 50%; color: var(--blue); background: rgba(0,174,239,.15); }
+.btn-filtro:nth-child(3n+2) .icon{ color: var(--gold-ink); background: rgba(255,193,7,.28); }
+.btn-filtro:nth-child(3n+3) .icon{ color: var(--navy); background: rgba(23,4,88,.12); }
+
+.btn-original{
+  grid-column: 1 / -1; justify-content: center; background: transparent;
+  border: 1.5px dashed var(--line); color: var(--ink-dim); margin-top: 4px;
+}
+.btn-original:hover{ border-color: var(--danger); color: var(--danger); }
+
+.analisis-box{ margin-top: 4px; }
+#resultadoAnalisis{ margin-top: 10px; font-family: var(--f-mono); font-size: .78rem; color: var(--ink-dim); text-align: left; line-height: 1.6; }
+#resultadoAnalisis strong{ color: var(--ink); }
+
+.export-container{ position: relative; margin-top: 4px; }
+.dropdown-content{
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 0; width: 100%;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-m);
+  overflow: hidden; box-shadow: 0 16px 32px rgba(23,4,88,.18);
+}
+.dropdown-content a{
+  display: flex; align-items: center; gap: 10px; padding: 13px 16px; color: var(--ink);
+  text-decoration: none; cursor: pointer; font-size: .85rem; font-weight: 600; border-bottom: 1px solid var(--line);
+}
+.dropdown-content a:last-child{ border-bottom: none; }
+.dropdown-content a:hover{ background: var(--surface-2); color: var(--blue); }
+
+/* ==========================================================================
+   Páginas internas — Quiénes Somos / Créditos
+   ========================================================================== */
+.page{ min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
+.page-header{ display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.back-link{
+  display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--ink); text-decoration: none;
+}
+.back-link:hover{ border-color: var(--blue); color: var(--blue); }
+.page-header h1{ font-size: 1.05rem; color: var(--ink); }
+
+.page-body{ padding: 28px 20px 48px; max-width: 640px; margin: 0 auto; width: 100%; }
+.page-body p{ color: var(--ink-dim); line-height: 1.7; font-size: .92rem; }
+.eyebrow{ font-family: var(--f-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; display: block; font-weight: 700; }
+
+.team-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.team-card{ background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-m); padding: 16px; text-align: center; box-shadow: 0 4px 14px rgba(23,4,88,.08); }
+.team-avatar{
+  width: 52px; height: 52px; border-radius: 50%; background: rgba(0,174,239,.15); border: none;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: var(--blue);
+}
+.team-card:nth-child(3n+2) .team-avatar{ color: var(--gold-ink); background: rgba(255,193,7,.28); }
+.team-card:nth-child(3n+3) .team-avatar{ color: var(--navy); background: rgba(23,4,88,.12); }
+.team-card h3{ font-size: .85rem; color: var(--ink); }
+.team-card span{ font-family: var(--f-mono); font-size: .65rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .04em; }
+
+.credit-list{ margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+.credit-row{
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px;
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-m); box-shadow: 0 4px 14px rgba(23,4,88,.08);
+}
+.credit-row .name{ font-size: .85rem; font-weight: 700; color: var(--ink); }
+.credit-row .desc{ font-size: .72rem; color: var(--ink-faint); }
+.credit-row .icon{ color: var(--blue); }
+
+.footnote{ margin-top: 32px; font-family: var(--f-mono); font-size: .68rem; color: var(--ink-faint); text-align: center; }
+
+@media (min-width: 560px){ .content-center{ padding-top: 50px; } }

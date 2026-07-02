@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEANJO | Editor PDI</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body onload="iniciarCamara()">
+    <header class="navbar">
+        <h1>ZEANJO <span class="accent">PDI</span></h1>
+        <a href="index.html" class="back-link" title="Volver al inicio">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        </a>
+    </header>
+
+    <main class="app-container">
+        <div id="canvas-container">
+            <video id="video-preview" autoplay playsinline></video>
+            <canvas id="image-canvas"></canvas>
+        </div>
+
+        <div class="capture-row">
+            <button onclick="capturarImagen()" class="btn btn-gold">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"/><circle cx="12" cy="13" r="4"/></svg>
+                Capturar
+            </button>
+            <button onclick="location.reload()" class="btn btn-icon" title="Reiniciar cámara">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </button>
+        </div>
+        <button onclick="resetImagen()" class="btn btn-danger" style="margin-bottom:16px;">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Restaurar Original
+        </button>
+
+        <details class="category">
+            <summary class="category-title">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg>
+                Controles de Ajuste
+                <svg class="icon icon-sm chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </summary>
+            <div class="filter-group">
+                <label>Brillo <span id="valBrillo">0</span></label>
+                <input type="range" id="sliderBrillo" min="-100" max="100" value="0" oninput="actualizarFiltros()">
+
+                <label>Contraste <span id="valContraste">1</span></label>
+                <input type="range" id="sliderContraste" min="0.5" max="3" step="0.1" value="1" oninput="actualizarFiltros()">
+
+                <label>Suavizado <span id="valBlur">0</span></label>
+                <input type="range" id="sliderBlur" min="0" max="10" value="0" oninput="actualizarFiltros()">
+            </div>
+        </details>
+
+        <details class="category" open>
+            <summary class="category-title">
+                <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Centro de Filtros
+                <svg class="icon icon-sm chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </summary>
+
+            <div class="filter-group">
+                <p class="group-label">Básicos</p>
+                <div class="contenedor-botones">
+                    <button class="btn-filtro" onclick="aplicarEscalaGrises()">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20Z" fill="currentColor" stroke="none"/></svg>
+                        Escala Grises
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarSobel()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg>
+                        Detectar Sobel
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarNegativo()">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/></svg>
+                        Negativo
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarSepia()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                        Sepia
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarEcualizacion()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20V7"/></svg>
+                        Ecualizar
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarRelieve()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/></svg>
+                        Relieve
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarCannySimplificado()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M2 12h4l3-9 4 18 3-9h6"/></svg>
+                        Canny
+                    </button>
+                    <button class="btn-filtro" onclick="aplicarLaplaciano()">
+                        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                        Laplaciano
+                    </button>
+                </div>
+                <button class="btn-original" onclick="restaurarImagenOriginal()">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Ver Original
+                </button>
+            </div>
+
+            <div class="filter-group">
+                <p class="group-label">Segmentación</p>
+                <label>Umbral <span id="valUmbral">128</span></label>
+                <input type="range" id="sliderUmbral" min="0" max="255" value="128" oninput="aplicarUmbral()">
+            </div>
+
+            <div class="filter-group analisis-box">
+                <button onclick="analizarImagen()" class="btn btn-outline">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
+                    Analizar Objetos (Píxeles)
+                </button>
+                <div id="resultadoAnalisis"></div>
+            </div>
+        </details>
+
+        <div class="export-container">
+            <div class="dropdown">
+                <button class="btn btn-primary" onclick="toggleMenu()">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                    Guardar Resultado
+                </button>
+                <div id="formatMenu" class="dropdown-content">
+                    <a onclick="descargarImagen('png')">PNG · Alta calidad</a>
+                    <a onclick="descargarImagen('jpeg')">JPEG · Ligero</a>
+                    <a onclick="descargarImagen('webp')">WebP · Moderno</a>
+                    <a onclick="descargarImagen('bmp')">BMP · Raw</a>
+                    <a onclick="descargarImagen('tiff')">TIFF · Profesional</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+    window.onload = function() {
+        const imagenData = localStorage.getItem('imagenParaEditar');
+        if (imagenData) {
+            const canvas = document.getElementById('image-canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                imagenOriginal = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                document.getElementById('video-preview').style.display = 'none';
+            };
+            img.src = imagenData;
+            localStorage.removeItem('imagenParaEditar');
+        } else {
+            iniciarCamara();
+        }
+    };
+    </script>
+</body>
+</html>
