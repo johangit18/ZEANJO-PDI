@@ -1,14 +1,40 @@
 let imagenOriginal = null;
 
 // Cámara y Captura
-async function iniciarCamara() {
+let streamActual = null;      // Guarda el stream activo para poder detenerlo al cambiar cámara
+let facingModeActual = 'user'; // 'user' = frontal, 'environment' = trasera
+
+async function iniciarCamara(facingMode = facingModeActual) {
     const video = document.getElementById('video-preview');
+    const canvas = document.getElementById('image-canvas');
     if (!video) return;
+
+    // Si ya había un stream corriendo (por ejemplo, al cambiar de cámara),
+    // hay que apagar sus pistas antes de pedir una nueva. Si no, la cámara
+    // anterior se queda "prendida" en segundo plano.
+    if (streamActual) {
+        streamActual.getTracks().forEach(track => track.stop());
+    }
+
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.style.display = 'block';
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: facingMode }
+        });
+        streamActual = stream;
+        facingModeActual = facingMode;
+
         video.srcObject = stream;
-    } catch (err) { alert("Error al acceder a la cámara"); }
+        video.style.display = 'block';
+        canvas.style.display = 'none'; // Oculta el canvas mientras la cámara está activa
+    } catch (err) {
+        alert("Error al acceder a la cámara");
+    }
+}
+
+// Alterna entre cámara frontal y trasera
+function cambiarCamara() {
+    const nuevoModo = facingModeActual === 'user' ? 'environment' : 'user';
+    iniciarCamara(nuevoModo);
 }
 function iniciarCamaraInicio() {
     window.location.href = "editor.html";
@@ -26,6 +52,7 @@ function capturarImagen() {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     imagenOriginal = ctx.getImageData(0, 0, canvas.width, canvas.height);
     video.style.display = 'none';
+    canvas.style.display = 'block'; // Ahora sí se muestra el canvas con la foto capturada
    
 }
 
