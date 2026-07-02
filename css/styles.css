@@ -95,7 +95,7 @@ button{ font-family: var(--f-body); }
 .fondo-tecnologico{
   position: relative; min-height: 100vh; display: flex; flex-direction: column;
   background:
-    linear-gradient(rgba(26, 10, 106, 0.88), rgba(16, 6, 82, 0.96)),
+    linear-gradient(rgba(26,10,106,0.15), rgba(16,6,82,0.20)),
     url('../img/uct.jfif');
   background-size: cover; background-position: center; background-attachment: fixed;
 }
