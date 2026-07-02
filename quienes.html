@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiénes Somos | ZEANJO</title>
     <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="icon" href="img/icon.jpg">
 </head>
 <body>
     <div class="page">
@@ -60,5 +62,14 @@
             <p class="footnote">Universidad Católica de Trujillo Benedicto XVI</p>
         </main>
     </div>
+    <script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js")
+                .then(() => console.log("Service Worker registrado"))
+                .catch(error => console.log("Error:", error));
+        });
+    }
+    </script>
 </body>
 </html>
