@@ -1,5 +1,12 @@
 let imagenOriginal = null;
 
+function ajustarProporcionContenedor(width, height) {
+    const contenedor = document.getElementById('canvas-container');
+    if (contenedor && width > 0 && height > 0) {
+        contenedor.style.aspectRatio = `${width} / ${height}`;
+    }
+}
+
 // Cámara y Captura
 let streamActual = null;      // Guarda el stream activo para poder detenerlo al cambiar cámara
 let facingModeActual = 'user'; // 'user' = frontal, 'environment' = trasera
@@ -26,6 +33,12 @@ async function iniciarCamara(facingMode = facingModeActual) {
         video.srcObject = stream;
         video.style.display = 'block';
         canvas.style.display = 'none'; // Oculta el canvas mientras la cámara está activa
+
+        // Cuando el video ya tiene sus dimensiones reales (no antes),
+        // ajustamos el contenedor a esa proporción exacta.
+        video.addEventListener('loadedmetadata', () => {
+            ajustarProporcionContenedor(video.videoWidth, video.videoHeight);
+        }, { once: true });
     } catch (err) {
         alert("Error al acceder a la cámara");
     }

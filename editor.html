@@ -6,7 +6,7 @@
     <title>ZEANJO | Editor PDI</title>
     <link rel="stylesheet" href="css/styles.css">
 
-    <link rel="icon" href="img/icon.jpg">
+    <link rel="icon" href="img/icon.png">
 </head>
 <body onload="iniciarCamara()">
     <header class="navbar">
@@ -159,6 +159,7 @@
                 ctx.drawImage(img, 0, 0);
                 imagenOriginal = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 document.getElementById('video-preview').style.display = 'none';
+                ajustarProporcionContenedor(img.width, img.height);
             };
             img.src = imagenData;
             localStorage.removeItem('imagenParaEditar');
