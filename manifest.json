@@ -1,20 +1,25 @@
 {
   "name": "ZEANJO PDI",
   "short_name": "ZEANJO",
-  "start_url": "index.html",
+  "description": "Aplicación de Procesamiento Digital de Imágenes",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0F172A",
   "theme_color": "#0F172A",
   "icons": [
     {
       "src": "img/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "img/icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ] 
+  ]
 }
