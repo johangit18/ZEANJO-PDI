@@ -17,6 +17,11 @@
     <link rel="apple-touch-icon" href="img/icon.png">
 </head>
 <body>
+    <div id="splash-screen">
+        <img src="img/logo-app.jpg" alt="ZEANJO" class="splash-logo">
+        <h1 class="splash-title">ZEANJO<span class="splash-accent">PDI</span></h1>
+        <div class="splash-loader"></div>
+    </div>
     <div class="fondo-tecnologico">
         <header class="top-bar">
             <img src="img/logo-uct.png" alt="Logo UCT" class="logo-uct">
@@ -68,6 +73,16 @@
             </div>
         </footer>
     </div>
+    
+    <script>
+    window.addEventListener("load", () => {
+        const splash = document.getElementById("splash-screen");
+        setTimeout(() => {
+            splash.classList.add("splash-hidden");
+            setTimeout(() => splash.remove(), 500);
+        }, 800);
+    });
+    </script>
 
     <script src="js/main.js"></script>
     <script>
