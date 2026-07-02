@@ -257,7 +257,7 @@ input[type=range]{ width: 100%; margin: 4px 0 16px; accent-color: var(--blue); h
 .page-header h1{ font-size: 1.05rem; color: var(--ink); }
 
 .page-body{ padding: 28px 20px 48px; max-width: 640px; margin: 0 auto; width: 100%; }
-.page-body p{ color: var(--ink-dim); line-height: 1.7; font-size: .92rem; }
+.page-body p{ color: rgba(255,255,255,0.92); line-height: 1.7; font-size: .92rem; }
 .eyebrow{ font-family: var(--f-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; display: block; font-weight: 700; }
 
 .team-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
