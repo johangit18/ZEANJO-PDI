@@ -1,4 +1,4 @@
-const CACHE_NAME = "zeanjo-v1";
+const CACHE_NAME = "zeanjo-v2";
 
 const urlsToCache = [
     "./",
@@ -10,13 +10,25 @@ const urlsToCache = [
     "./js/main.js",
     "./img/logo-app.jpg",
     "./img/logo-uct.png",
-    "./img/icon.jpg"
+    "./img/icon.png"
 ];
 
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => cache.addAll(urlsToCache))
+    );
+});
+
+self.addEventListener("activate", event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames =>
+            Promise.all(
+                cacheNames
+                    .filter(name => name !== CACHE_NAME)
+                    .map(name => caches.delete(name))
+            )
+        )
     );
 });
 
